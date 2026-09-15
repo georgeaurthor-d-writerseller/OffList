@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live demo — Offlist</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .demo-banner{background:var(--surface-dim); border-bottom:1px solid var(--border); text-align:center; font-size:13px; color:var(--muted); padding:9px 16px;}
+  .demo-banner strong{color:var(--ink);}
+  .demo-banner button{margin-left:10px; font-size:12.5px; font-weight:600; color:var(--rust); background:none; border:none; cursor:pointer; text-decoration:underline;}
+
+  .app-header{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; border-bottom:1px solid var(--border); flex-wrap:wrap;}
+  .app-header .who{font-family:'Sora',sans-serif; font-size:18px; font-weight:800;}
+  .app-header .sub{font-size:12.5px; color:var(--muted);}
+
+  main{padding:24px; max-width:840px; margin:0 auto;}
+  .page-title{font-family:'Sora',sans-serif; font-size:24px; font-weight:800; margin:0 0 4px;}
+  .page-sub{color:var(--muted); font-size:14px; margin:0 0 24px;}
+
+  .stat-row{display:flex; gap:28px; margin-bottom:32px; flex-wrap:wrap;}
+  .stat{display:flex; flex-direction:column;}
+  .stat-num{font-family:'Sora',sans-serif; font-size:26px; font-weight:800;}
+  .stat-label{font-size:12px; color:var(--muted);}
+
+  .section-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; margin-top:36px;}
+  .section-head h2{font-family:'Sora',sans-serif; font-size:18px; font-weight:800; margin:0;}
+  .section-head:first-of-type{margin-top:0;}
+  .btn-ghost{border:none; background:transparent; color:var(--muted); padding:6px; cursor:pointer; font-size:14px;}
+
+  .departure-card{border:1px solid var(--border); background:var(--surface); border-radius:10px; margin-bottom:12px; overflow:hidden;}
+  .d-summary{display:flex; align-items:center; gap:14px; padding:14px 16px; cursor:pointer;}
+  .d-avatar{width:38px; height:38px; border-radius:50%; background:var(--indigo); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0;}
+  .d-main{flex:1; min-width:0;}
+  .d-name{font-weight:700; font-size:14.5px;}
+  .d-meta{font-size:12.5px; color:var(--muted); margin-top:1px;}
+  .d-progress-wrap{width:100%; height:6px; background:var(--surface-dim); border-radius:4px; margin-top:8px; overflow:hidden;}
+  .d-progress-bar{height:100%; background:var(--green); border-radius:4px;}
+  .d-pct{font-size:12.5px; font-weight:700; color:var(--muted); white-space:nowrap; margin-left:8px;}
+  .d-chevron{font-size:12px; color:var(--muted); margin-left:8px;}
+
+  .d-body{border-top:1px solid var(--border); padding:16px; display:none;}
+  .d-body.open{display:block;}
+  .cat-block{margin-bottom:16px;}
+  .cat-block:last-child{margin-bottom:0;}
+  .cat-title{font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:8px;}
+  .item-row{display:flex; align-items:center; gap:9px; padding:5px 0; font-size:13.5px;}
+  .item-row input{accent-color:var(--indigo); width:16px; height:16px;}
+  .item-row.done label{color:var(--muted); text-decoration:line-through;}
+  .item-add-row{display:flex; gap:6px; margin-top:6px;}
+  .item-add-row input{flex:1; font-size:12.5px; padding:6px 8px; border-radius:6px; border:1px solid var(--border); background:var(--bg);}
+  .item-add-row button{font-size:12px; font-weight:600; border:1px solid var(--border); background:var(--surface); border-radius:6px; padding:6px 10px; cursor:pointer;}
+  .d-actions{display:flex; gap:8px; justify-content:flex-end; margin-top:16px; border-top:1px solid var(--border); padding-top:14px;}
+
+  .completed-row{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border:1px solid var(--border); background:var(--surface); border-radius:8px; margin-bottom:8px; font-size:13.5px;}
+  .completed-row .cr-date{color:var(--muted); font-size:12px;}
+
+  .form-panel{border:1px solid var(--border); background:var(--surface-dim); border-radius:10px; padding:16px; margin-bottom:16px; display:flex; flex-direction:column; gap:12px;}
+  .field{display:flex; flex-direction:column; gap:5px; font-size:13px;}
+  .field-label{color:var(--muted); font-weight:600;}
+  .field input, .field select{font-family:'Work Sans',sans-serif; padding:8px 10px; border-radius:6px; border:1px solid var(--border); background:var(--surface); font-size:14px; color:var(--ink); width:100%;}
+  .field-row{display:flex; gap:10px;}
+  .field-row .field{flex:1;}
+  .form-actions{display:flex; gap:8px; justify-content:flex-end;}
+
+  .template-cats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .template-col{border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:14px;}
+  .template-col h3{font-size:13px; margin:0 0 10px;}
+  .template-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
+  .template-col li{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; background:var(--surface-dim); padding:6px 8px; border-radius:6px;}
+  .template-col li button{border:none; background:none; color:var(--muted); cursor:pointer; font-size:12px;}
+
+  .empty-note{font-size:13.5px; color:var(--muted); padding:16px 0;}
+
+  @media (max-width:520px){
+    main{padding:16px;} .app-header{padding:14px 16px;} .field-row{flex-direction:column;}
+    .template-cats{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="brand"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="app.html" class="active">Demo</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="demo-banner">
+  <strong>You're using a live demo.</strong> Your changes are saved in this browser only — nothing is sent anywhere.
+  <button id="resetDemo">Reset demo data</button>
+</div>
+
+<header class="app-header">
+  <div>
+    <div class="who">Northlake Analytics</div>
+    <div class="sub">Shared by IT & People Ops</div>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer class="site-footer">
+  <div class="inner"><span>© 2026 Offlist. A prototype in progress.</span><span><a href="contact.html">Questions? Get in touch</a></span></div>
+</footer>
+
+<script>
+const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const STORAGE_KEY = 'offlist_demo_state_v1';
+const CATS = [
+  { key:'access', label:'Access & systems' },
+  { key:'assets', label:'Equipment & assets' },
+  { key:'hr', label:'HR & documentation' },
+];
+
+function mkItems(labels){ return labels.map((label,i) => ({ id:`i${Date.now()}${i}${Math.random().toString(36).slice(2,6)}`, label, done:false })); }
+function fmtDate(iso){ return new Date(iso).toLocaleDateString(undefined,{month:'short', day:'numeric', year:'numeric'}); }
+
+function seedState(){
+  const today = new Date();
+  const daysAgo = n => { const d=new Date(today); d.setDate(d.getDate()-n); return d.toISOString(); };
+  return {
+    templates: {
+      access: ["Revoke Slack access","Revoke GitHub access","Revoke AWS console access","Disable company email","Disable VPN access"],
+      assets: ["Collect laptop","Collect access badge","Collect any company phone"],
+      hr: ["Process final paycheck","Confirm benefits end date","Schedule exit interview","Confirm knowledge transfer doc"],
+    },
+    departures: [
+      {
+        id:'d1', name:'Dana Whitfield', role:'Backend Engineer', department:'Engineering', lastDay: daysAgo(0), status:'active',
+        items: {
+          access: [ {id:'a1',label:'Revoke Slack access',done:true}, {id:'a2',label:'Revoke GitHub access',done:true}, {id:'a3',label:'Revoke AWS console access',done:true}, {id:'a4',label:'Disable company email',done:false}, {id:'a5',label:'Disable VPN access',done:false} ],
+          assets: [ {id:'b1',label:'Collect laptop',done:false}, {id:'b2',label:'Collect access badge',done:false} ],
+          hr: [ {id:'c1',label:'Process final paycheck',done:false}, {id:'c2',label:'Confirm benefits end date',done:false}, {id:'c3',label:'Schedule exit interview',done:true} ],
+        }
+      },
+      {
+        id:'d2', name:'Ruth Alvarado', role:'Account Manager', department:'Sales', lastDay: daysAgo(2), status:'active',
+        items: {
+          access: [ {id:'a6',label:'Revoke Slack access',done:true}, {id:'a7',label:'Disable company email',done:true} ],
+          assets: [ {id:'b3',label:'Collect laptop',done:true}, {id:'b4',label:'Collect any company phone',done:false} ],
+          hr: [ {id:'c4',label:'Process final paycheck',done:true}, {id:'c5',label:'Confirm knowledge transfer doc',done:false} ],
+        }
+      },
+    ],
+    completed: [
+      { id:'d0', name:'Owen Bright', role:'Support Specialist', department:'Support', completedAt: daysAgo(14) },
+    ],
+    expanded: 'd1',
+  };
+}
+
+function loadState(){
+  try{ const raw = localStorage.getItem(STORAGE_KEY); if (raw) return JSON.parse(raw); }
+  catch(e){ /* fall through */ }
+  return seedState();
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ /* sandboxed preview — still works in-memory */ }
+}
+
+let state = loadState();
+let showAddForm = false;
+
+function allItems(dep){ return CATS.flatMap(c => dep.items[c.key]); }
+function completion(dep){ const items = allItems(dep); if (items.length === 0) return 0; return Math.round((items.filter(i=>i.done).length / items.length) * 100); }
+
+function render(){
+  const active = state.departures;
+  const totalItemsRemaining = active.reduce((sum,d) => sum + allItems(d).filter(i=>!i.done).length, 0);
+  const fullyDoneCount = active.filter(d => completion(d) === 100).length;
+
+  document.getElementById('main').innerHTML = `
+    <h1 class="page-title">Active departures</h1>
+    <p class="page-sub">Every open item, split by who owns it, until the checklist is fully closed.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="stat-num">${active.length}</span><span class="stat-label">active departures</span></div>
+      <div class="stat"><span class="stat-num">${totalItemsRemaining}</span><span class="stat-label">items still open</span></div>
+      <div class="stat"><span class="stat-num">${state.completed.length}</span><span class="stat-label">completed all-time</span></div>
+    </div>
+
+    <div class="section-head">
+      <h2>In progress</h2>
+      <button class="btn btn-primary" id="toggleAddForm">${showAddForm ? '✕ Cancel' : '+ Log a departure'}</button>
+    </div>
+    ${showAddForm ? `
+      <div class="form-panel">
+        <div class="field-row">
+          <label class="field"><span class="field-label">Name</span><input id="depName" placeholder="e.g. Jordan Blake" /></label>
+          <label class="field"><span class="field-label">Role</span><input id="depRole" placeholder="e.g. Product Designer" /></label>
+        </div>
+        <div class="field-row">
+          <label class="field"><span class="field-label">Department</span><input id="depDept" placeholder="e.g. Product" /></label>
+          <label class="field"><span class="field-label">Last day</span><input id="depLastDay" type="date" /></label>
+        </div>
+        <div class="form-actions"><button class="btn btn-primary" id="saveDeparture">Create checklist</button></div>
+      </div>` : ''}
+
+    ${active.length === 0 ? `<p class="empty-note">No active departures.</p>` : active.map(dep => renderDeparture(dep)).join('')}
+
+    <div class="section-head"><h2>Completed</h2></div>
+    ${state.completed.length === 0 ? `<p class="empty-note">Nothing completed yet.</p>` : state.completed.slice().reverse().map(c => `
+      <div class="completed-row">
+        <span><strong>${esc(c.name)}</strong> — ${esc(c.role)}, ${esc(c.department)}</span>
+        <span class="cr-date">Closed ${fmtDate(c.completedAt)}</span>
+      </div>
+    `).join('')}
+
+    <div class="section-head"><h2>Checklist templates</h2></div>
+    <p class="page-sub" style="margin-top:-8px">Applied automatically to every new departure you log.</p>
+    <div class="template-cats">
+      ${CATS.map(cat => `
+        <div class="template-col">
+          <h3>${cat.label}</h3>
+          <ul>
+            ${state.templates[cat.key].map((label,i) => `
+              <li><span>${esc(label)}</span><button data-remove-template="${cat.key}|${i}">✕</button></li>
+            `).join('')}
+          </ul>
+          <div class="item-add-row">
+            <input placeholder="Add item" data-template-input="${cat.key}" />
+            <button data-template-add="${cat.key}">Add</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  attachEvents();
+}
+
+function renderDeparture(dep){
+  const pct = completion(dep);
+  const isOpen = state.expanded === dep.id;
+  return `
+    <div class="departure-card">
+      <div class="d-summary" data-toggle-expand="${dep.id}">
+        <div class="d-avatar">${esc(dep.name[0].toUpperCase())}</div>
+        <div class="d-main">
+          <div class="d-name">${esc(dep.name)}</div>
+          <div class="d-meta">${esc(dep.role)} · ${esc(dep.department)} · Last day ${fmtDate(dep.lastDay)}</div>
+          <div class="d-progress-wrap"><div class="d-progress-bar" style="width:${pct}%"></div></div>
+        </div>
+        <span class="d-pct">${pct}%</span>
+        <span class="d-chevron">${isOpen ? '▲' : '▼'}</span>
+      </div>
+      <div class="d-body ${isOpen ? 'open' : ''}">
+        ${CATS.map(cat => `
+          <div class="cat-block">
+            <div class="cat-title">${cat.label}</div>
+            ${dep.items[cat.key].map(item => `
+              <div class="item-row ${item.done?'done':''}">
+                <input type="checkbox" id="item-${item.id}" data-item-toggle="${dep.id}|${cat.key}|${item.id}" ${item.done?'checked':''} />
+                <label for="item-${item.id}">${esc(item.label)}</label>
+              </div>
+            `).join('')}
+            <div class="item-add-row">
+              <input placeholder="Add an item" data-item-input="${dep.id}|${cat.key}" />
+              <button data-item-add="${dep.id}|${cat.key}">Add</button>
+            </div>
+          </div>
+        `).join('')}
+        <div class="d-actions">
+          ${pct === 100
+            ? `<button class="btn btn-primary" data-complete-departure="${dep.id}">Mark departure complete</button>`
+            : `<span class="empty-note" style="padding:0;">Complete every item to close this departure.</span>`}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function attachEvents(){
+  const main = document.getElementById('main');
+
+  main.querySelectorAll('[data-toggle-expand]').forEach(el => el.addEventListener('click', () => {
+    const id = el.dataset.toggleExpand;
+    state.expanded = state.expanded === id ? null : id;
+    saveState(); render();
+  }));
+
+  main.querySelectorAll('[data-item-toggle]').forEach(cb => cb.addEventListener('change', (e) => {
+    e.stopPropagation();
+    const [depId, catKey, itemId] = cb.dataset.itemToggle.split('|');
+    const dep = state.departures.find(d => d.id === depId);
+    const item = dep.items[catKey].find(i => i.id === itemId);
+    item.done = cb.checked;
+    saveState(); render();
+  }));
+
+  main.querySelectorAll('[data-item-add]').forEach(btn => btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const [depId, catKey] = btn.dataset.itemAdd.split('|');
+    const input = main.querySelector(`[data-item-input="${depId}|${catKey}"]`);
+    const label = input.value.trim();
+    if (!label) return;
+    const dep = state.departures.find(d => d.id === depId);
+    dep.items[catKey].push({ id:`i${Date.now()}`, label, done:false });
+    saveState(); render();
+  }));
+
+  main.querySelectorAll('[data-complete-departure]').forEach(btn => btn.addEventListener('click', () => {
+    const id = btn.dataset.completeDeparture;
+    const dep = state.departures.find(d => d.id === id);
+    state.completed.push({ id: dep.id, name: dep.name, role: dep.role, department: dep.department, completedAt: new Date().toISOString() });
+    state.departures = state.departures.filter(d => d.id !== id);
+    saveState(); render();
+  }));
+
+  const toggleAddForm = main.querySelector('#toggleAddForm');
+  if (toggleAddForm) toggleAddForm.addEventListener('click', () => { showAddForm = !showAddForm; render(); });
+  const saveDeparture = main.querySelector('#saveDeparture');
+  if (saveDeparture) saveDeparture.addEventListener('click', () => {
+    const name = main.querySelector('#depName').value.trim();
+    if (!name) return;
+    const newDep = {
+      id:`d${Date.now()}`, name,
+      role: main.querySelector('#depRole').value.trim() || 'Employee',
+      department: main.querySelector('#depDept').value.trim() || 'General',
+      lastDay: main.querySelector('#depLastDay').value || new Date().toISOString(),
+      status:'active',
+      items: {
+        access: mkItems(state.templates.access),
+        assets: mkItems(state.templates.assets),
+        hr: mkItems(state.templates.hr),
+      },
+    };
+    state.departures.push(newDep);
+    state.expanded = newDep.id;
+    showAddForm = false;
+    saveState(); render();
+  });
+
+  main.querySelectorAll('[data-remove-template]').forEach(btn => btn.addEventListener('click', () => {
+    const [catKey, idx] = btn.dataset.removeTemplate.split('|');
+    state.templates[catKey].splice(Number(idx), 1);
+    saveState(); render();
+  }));
+  main.querySelectorAll('[data-template-add]').forEach(btn => btn.addEventListener('click', () => {
+    const catKey = btn.dataset.templateAdd;
+    const input = main.querySelector(`[data-template-input="${catKey}"]`);
+    const label = input.value.trim();
+    if (!label) return;
+    state.templates[catKey].push(label);
+    saveState(); render();
+  }));
+}
+
+document.getElementById('resetDemo').addEventListener('click', () => {
+  if (!confirm("Reset all demo data back to the starting example? This clears everything you've changed.")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = seedState();
+  showAddForm = false;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
