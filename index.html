@@ -4,18 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Offlist — Nothing forgotten when someone leaves</title>
+<meta name="description" content="Offlist turns employee offboarding into one shared checklist for IT and HR — access, equipment, and paperwork, tracked until every box is checked." />
+<link rel="icon" href="assets/logo.png" />
 <link rel="stylesheet" href="styles.css" />
 <style>
   @media (prefers-reduced-motion: reduce){ .tick-item, .risk-dot{ animation:none !important; opacity:1 !important; } }
 
-  .hero{max-width:1080px; margin:0 auto; padding:60px 24px 48px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:44px; align-items:center;}
+  .hero{max-width:1120px; margin:0 auto; padding:52px 24px 40px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:44px; align-items:center;}
   .hero-eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:var(--indigo); background:var(--surface-dim); padding:6px 12px; border-radius:6px; margin-bottom:16px;}
-  .hero h1{font-size:38px; font-weight:800; line-height:1.16; margin:0 0 18px; letter-spacing:-0.01em;}
+  .hero h1{font-family:'Sora',sans-serif; font-size:40px; font-weight:800; line-height:1.14; margin:0 0 18px; letter-spacing:-0.01em;}
   .hero p.lead{font-size:16.5px; color:var(--muted); max-width:48ch; margin:0 0 28px;}
   .hero .actions{display:flex; gap:12px; flex-wrap:wrap;}
 
-  /* animated checklist card */
-  .check-card{border:1px solid var(--border); border-radius:14px; background:var(--surface); box-shadow:0 20px 50px rgba(27,30,42,0.08); padding:22px;}
+  .check-card{border:1px solid var(--border); border-radius:14px; background:var(--surface); box-shadow:var(--shadow); padding:22px;}
   .check-card .cc-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
   .check-card .cc-name{font-weight:700; font-size:14.5px;}
   .check-card .cc-day{font-size:12px; color:var(--muted);}
@@ -27,13 +28,6 @@
   .tick-item.done .tick-label{color:var(--muted); text-decoration:line-through;}
   @keyframes fadeCheck{ from{ opacity:0; transform:translateY(4px);} to{ opacity:1; transform:translateY(0);} }
 
-  section{max-width:1080px; margin:0 auto; padding:52px 24px;}
-  .section-head{max-width:62ch; margin-bottom:34px;}
-  .section-head .kicker{font-size:12.5px; font-weight:700; color:var(--rust); margin-bottom:8px;}
-  .section-head h2{font-size:26px; font-weight:800; margin:0 0 10px; letter-spacing:-0.01em;}
-  .section-head p{color:var(--muted); font-size:15px; margin:0;}
-
-  /* risk row */
   .risk-row{display:flex; gap:14px; flex-wrap:wrap;}
   .risk-item{flex:1; min-width:130px; border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:16px; text-align:center; position:relative;}
   .risk-dot{width:8px; height:8px; border-radius:50%; background:var(--rust); position:absolute; top:12px; right:12px; animation:riskPulse 1.8s ease-in-out infinite;}
@@ -43,28 +37,30 @@
   .risk-stat{margin-top:24px; font-size:14.5px; color:var(--muted);}
   .risk-stat strong{color:var(--ink); font-family:'Sora',sans-serif;}
 
-  /* day timeline */
   .day-timeline{position:relative; padding:30px 0 10px; margin-top:10px;}
   .day-line{position:absolute; left:0; right:0; top:50%; height:2px; background:var(--border);}
   .day-track{display:flex; justify-content:space-between; position:relative;}
   .day-node{display:flex; flex-direction:column; align-items:center; width:120px; text-align:center;}
-  .day-node .dot{width:14px; height:14px; border-radius:50%; background:var(--indigo); border:3px solid var(--bg); position:relative; z-index:1; margin-bottom:10px;}
-  .day-node .d-label{font-size:11px; font-weight:700; color:var(--indigo); margin-bottom:4px;}
+  .day-node .dot{width:14px; height:14px; border-radius:50%; background:var(--grad); border:3px solid var(--bg); position:relative; z-index:1; margin-bottom:10px;}
+  .day-node .d-label{font-size:11px; font-weight:800; color:var(--indigo); margin-bottom:4px;}
   .day-node .d-text{font-size:12.5px; color:var(--muted);}
 
-  /* with/without */
   .contrast{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
   .contrast-col{border-radius:12px; padding:22px;}
-  .contrast-col.without{background:#FBEDE7; border:1px solid #EFD3C4;}
+  .contrast-col.without{background:#FBEDE7;}
+  :root[data-theme="dark"] .contrast-col.without{background:#2E1F19;}
+  .contrast-col.without{border:1px solid #EFD3C4;}
+  :root[data-theme="dark"] .contrast-col.without{border-color:#4A3225;}
   .contrast-col.with{background:#EEF3EC; border:1px solid #D3E3D0;}
-  .contrast-col h3{font-size:14.5px; margin:0 0 12px;}
+  :root[data-theme="dark"] .contrast-col.with{background:#1B2A20; border-color:#2E4536;}
+  .contrast-col h3{font-family:'Sora',sans-serif; font-size:14.5px; margin:0 0 12px;}
   .contrast-col ul{margin:0; padding-left:18px; font-size:13.5px; color:var(--ink); display:flex; flex-direction:column; gap:8px;}
 
-  .cta-block{background:var(--indigo); color:#fff; border-radius:14px; padding:44px 36px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
-  .cta-block h2{font-size:26px; margin:0 0 8px;}
-  .cta-block p{margin:0; opacity:0.85; font-size:14.5px; max-width:46ch;}
-  .cta-block .btn-primary{background:#fff; color:var(--indigo); border-color:#fff;}
-  .cta-block .btn-primary:hover{background:var(--surface-dim);}
+  .cta-block{background:var(--grad); color:#fff; border-radius:16px; padding:44px 36px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .cta-block h2{font-family:'Sora',sans-serif; font-size:26px; margin:0 0 8px;}
+  .cta-block p{margin:0; opacity:0.9; font-size:14.5px; max-width:46ch;}
+  .cta-block .btn-primary{background:#fff; color:var(--indigo); border:none;}
+  .cta-block .btn-primary:hover{opacity:0.92;}
 
   @media (max-width:800px){
     .hero{grid-template-columns:1fr;}
@@ -80,14 +76,40 @@
 <body>
 
 <nav class="site-nav">
-  <div class="brand"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></div>
-  <div class="links">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><img src="assets/logo.png" alt="Offlist logo" /></span>
+    <span class="brand-text"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></span>
+  </a>
+  <div class="nav-links-desktop">
     <a href="index.html" class="active">Home</a>
-    <a href="app.html">Demo</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#how">How it works</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="pricing.html">Pricing</a>
     <a href="contact.html">Contact</a>
-    <a href="app.html" class="cta">Try it free</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <a href="app.html" class="nav-cta">Try it free</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">☰</button>
   </div>
 </nav>
+
+<div class="side-nav-overlay" id="sideNavOverlay"></div>
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-head">
+    <span class="brand-name display">Menu</span>
+    <button class="side-nav-close" id="sideNavClose">✕</button>
+  </div>
+  <a href="index.html" class="active">Home</a>
+  <a href="index.html#features">Features</a>
+  <a href="index.html#how">How it works</a>
+  <a href="solutions.html">Solutions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="app.html">Live demo</a>
+  <a href="contact.html">Contact</a>
+  <a href="app.html" class="side-nav-cta">Try it free</a>
+</div>
 
 <div class="hero">
   <div>
@@ -106,13 +128,41 @@
   </div>
 </div>
 
-<section id="problem">
+<div class="logos-strip">
+  <div class="ls-label">BUILT FOR</div>
+  <div class="logos-row">
+    <span>IT Teams</span>
+    <span>HR &amp; People Ops</span>
+    <span>Startups</span>
+    <span>Agencies &amp; MSPs</span>
+    <span>Remote-first companies</span>
+    <span>Healthcare &amp; Finance</span>
+  </div>
+</div>
+
+<div class="stat-strip">
+  <div><div class="s-num">3</div><div class="s-label">checklist categories, one view</div></div>
+  <div><div class="s-num">0</div><div class="s-label">logins needed to see status</div></div>
+  <div><div class="s-num">∞</div><div class="s-label">departures tracked, no per-seat limit on templates</div></div>
+</div>
+
+<section id="features">
   <div class="section-head">
     <div class="kicker">THE RISK</div>
     <h2>Access doesn't close itself</h2>
     <p>Offboarding is split across IT, HR, and whoever manages a given tool — and nobody owns the whole list. So most of it happens from memory.</p>
   </div>
-  <div class="risk-row">
+
+  <div class="quote-grid">
+    <div class="quote-bubble">Did IT actually revoke their AWS access?</div>
+    <div class="quote-bubble">Who has the laptop right now?</div>
+    <div class="quote-bubble">Did HR process the final paycheck?</div>
+    <div class="quote-bubble">Is there a record of what we actually did?</div>
+    <div class="quote-bubble">Who's supposed to run the exit interview?</div>
+    <div class="quote-bubble">Wait — they still have Slack access?</div>
+  </div>
+
+  <div class="risk-row" style="margin-top:28px;">
     <div class="risk-item"><span class="risk-dot"></span><div class="sys">Slack</div><div class="sys-note">still active</div></div>
     <div class="risk-item"><span class="risk-dot"></span><div class="sys">GitHub</div><div class="sys-note">still active</div></div>
     <div class="risk-item"><span class="risk-dot"></span><div class="sys">AWS console</div><div class="sys-note">still active</div></div>
@@ -122,7 +172,7 @@
   <p class="risk-stat">Access left open after departure is one of the most common findings in internal security reviews — and it's <strong>entirely preventable</strong> with a checklist someone actually finishes.</p>
 </section>
 
-<section id="timeline">
+<section id="how">
   <div class="section-head">
     <div class="kicker">HOW IT WORKS</div>
     <h2>A departure has a shape. Offlist follows it.</h2>
@@ -167,6 +217,39 @@
   </div>
 </section>
 
+<section id="faq">
+  <div class="section-head center">
+    <div class="kicker">QUESTIONS</div>
+    <h2>Everything worth knowing before you start</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item" open>
+      <summary>What is Offlist?</summary>
+      <p>Offlist is a shared checklist tool that makes sure every step of an employee's offboarding — access revocation, equipment return, HR paperwork — actually gets done and gets recorded.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Who is it built for?</summary>
+      <p>IT teams and HR/People Ops teams who currently split offboarding across email, memory, and separate spreadsheets — plus agencies and MSPs who manage offboarding for multiple client organizations.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I try it before talking to anyone?</summary>
+      <p>Yes — the live demo is open to everyone, no account needed. Test it with sample departures right now.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Why do I need to contact you instead of just signing up?</summary>
+      <p>We set up every paid workspace personally so your checklist templates and team roles are configured correctly from day one, rather than leaving you to figure it out alone. It takes one short conversation.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I customize the checklist items?</summary>
+      <p>Yes. Templates are fully editable — add, remove, or reorder items per category, and every new departure picks up your current template.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does it integrate with our other tools?</summary>
+      <p>Offlist is currently a standalone checklist and audit trail. Direct integrations with identity providers and ticketing tools are on our roadmap — ask us about your specific stack.</p>
+    </details>
+  </div>
+</section>
+
 <section id="cta">
   <div class="cta-block">
     <div>
@@ -178,9 +261,57 @@
 </section>
 
 <footer class="site-footer">
-  <div class="inner"><span>© 2026 Offlist.</span><span><a href="contact.html">Contact</a></span></div>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand-name">
+        <span class="brand-mark" style="width:26px;height:26px;border-radius:7px;"><img src="assets/logo.png" alt="" /></span>
+        Offlist
+      </div>
+      <p class="f-tagline">Nothing forgotten when someone leaves. A shared offboarding checklist for IT and HR.</p>
+    </div>
+    <div class="f-col">
+      <h4>Product</h4>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="app.html">Live demo</a>
+    </div>
+    <div class="f-col">
+      <h4>Solutions</h4>
+      <a href="solutions.html#it">IT Teams</a>
+      <a href="solutions.html#hr">HR &amp; People Ops</a>
+      <a href="solutions.html#agencies">Agencies &amp; MSPs</a>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="about.html#careers">Careers</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="f-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Conditions</a>
+      <a href="cookies.html">Cookie Policy</a>
+      <a href="acceptable-use.html">Acceptable Use</a>
+    </div>
+  </div>
+  <div style="max-width:1120px; margin:0 auto 26px;">
+    <div class="f-contact-name">GET IN TOUCH</div>
+    <a class="f-contact-email" href="mailto:victor@offlist.online">victor@offlist.online</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Offlist. All rights reserved.</span>
+    <span class="legal-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="cookies.html">Cookies</a>
+    </span>
+  </div>
 </footer>
 
+<script src="site.js"></script>
+<script src="cookie-consent.js"></script>
 <script>
   const items = [
     { label:"Revoke Slack access", done:true },

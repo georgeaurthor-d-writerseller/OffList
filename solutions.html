@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Solutions — Offlist</title>
+<meta name="description" content="How Offlist fits IT teams, HR &amp; People Ops, and agencies managing offboarding for clients." />
+<link rel="icon" href="assets/logo.png" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .sol-hero{max-width:720px; margin:0 auto; padding:52px 24px 10px; text-align:center;}
+  .sol-hero h1{font-family:'Sora',sans-serif; font-size:34px; font-weight:800; margin:0 0 14px;}
+  .sol-hero p{color:var(--muted); font-size:15.5px; max-width:52ch; margin:0 auto;}
+  .deep-section{max-width:1080px; margin:0 auto; padding:56px 24px; display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center;}
+  .deep-section:nth-child(even){direction:rtl;}
+  .deep-section:nth-child(even) > *{direction:ltr;}
+  .deep-section h2{font-family:'Sora',sans-serif; font-size:24px; margin:0 0 12px;}
+  .deep-section p{color:var(--muted); font-size:14.5px; margin:0 0 16px;}
+  .deep-section ul{padding-left:18px; font-size:14px; color:var(--ink); display:flex; flex-direction:column; gap:8px; margin:0 0 20px;}
+  .deep-visual{border:1px solid var(--border); background:var(--surface); border-radius:14px; padding:24px; box-shadow:var(--shadow);}
+  .deep-visual .dv-label{font-size:11px; font-weight:800; color:var(--indigo); letter-spacing:0.04em; margin-bottom:12px;}
+  .deep-visual .dv-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px;}
+  .deep-visual .dv-row:last-child{border-bottom:none;}
+  @media (max-width:800px){
+    .deep-section, .deep-section:nth-child(even){grid-template-columns:1fr; direction:ltr;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><img src="assets/logo.png" alt="Offlist logo" /></span>
+    <span class="brand-text"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></span>
+  </a>
+  <div class="nav-links-desktop">
+    <a href="index.html">Home</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#how">How it works</a>
+    <a href="solutions.html" class="active">Solutions</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <a href="app.html" class="nav-cta">Try it free</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<div class="side-nav-overlay" id="sideNavOverlay"></div>
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-head"><span class="brand-name display">Menu</span><button class="side-nav-close" id="sideNavClose">✕</button></div>
+  <a href="index.html">Home</a>
+  <a href="index.html#features">Features</a>
+  <a href="index.html#how">How it works</a>
+  <a href="solutions.html" class="active">Solutions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="app.html">Live demo</a>
+  <a href="contact.html">Contact</a>
+  <a href="app.html" class="side-nav-cta">Try it free</a>
+</div>
+
+<div class="sol-hero">
+  <h1 class="display">Built for the people who actually do offboarding</h1>
+  <p>Offlist adapts to how your organization actually splits this work — not a one-size-fits-all workflow.</p>
+</div>
+
+<section>
+  <div class="solution-grid">
+    <div class="solution-card">
+      <div class="sc-icon">🔐</div>
+      <h3>IT Teams</h3>
+      <p>Own the access side — see exactly what needs revoking, per departure, across every system.</p>
+    </div>
+    <div class="solution-card">
+      <div class="sc-icon">🧾</div>
+      <h3>HR &amp; People Ops</h3>
+      <p>Own the paperwork and equipment side — final pay, benefits, exit interviews, all tracked.</p>
+    </div>
+    <div class="solution-card">
+      <div class="sc-icon">🤝</div>
+      <h3>Agencies &amp; MSPs</h3>
+      <p>Manage offboarding on behalf of multiple client organizations, each with their own checklist.</p>
+    </div>
+  </div>
+</section>
+
+<section id="it" class="deep-section">
+  <div>
+    <h2>For IT teams</h2>
+    <p>Access left open after someone leaves is one of the most preventable security gaps — and one of the most common. Offlist gives IT a single, unambiguous list per departure.</p>
+    <ul>
+      <li>Every system to revoke, listed per departure — not left to memory</li>
+      <li>A timestamped log of exactly what was revoked and when</li>
+      <li>Shared visibility with HR, without giving them access to admin consoles</li>
+    </ul>
+    <a href="contact.html?plan=Team" class="btn btn-primary">Talk to us about IT setup</a>
+  </div>
+  <div class="deep-visual">
+    <div class="dv-label">ACCESS &amp; SYSTEMS</div>
+    <div class="dv-row"><span>Revoke Slack access</span><span>✓</span></div>
+    <div class="dv-row"><span>Revoke GitHub access</span><span>✓</span></div>
+    <div class="dv-row"><span>Revoke AWS console access</span><span>✓</span></div>
+    <div class="dv-row"><span>Disable company email</span><span style="color:var(--rust);">Pending</span></div>
+    <div class="dv-row"><span>Disable VPN access</span><span style="color:var(--rust);">Pending</span></div>
+  </div>
+</section>
+
+<section id="hr" class="deep-section">
+  <div>
+    <h2>For HR &amp; People Ops</h2>
+    <p>The paperwork side of offboarding is just as easy to lose track of as access — final pay, benefits end dates, exit interviews, knowledge transfer. Offlist keeps it all in one place, visible to whoever needs it.</p>
+    <ul>
+      <li>Every HR task tracked alongside IT's, without needing IT's tools</li>
+      <li>Editable templates so your checklist matches your actual process</li>
+      <li>A clean, closed record for every completed departure</li>
+    </ul>
+    <a href="contact.html?plan=Team" class="btn btn-primary">Talk to us about HR setup</a>
+  </div>
+  <div class="deep-visual">
+    <div class="dv-label">HR &amp; DOCUMENTATION</div>
+    <div class="dv-row"><span>Process final paycheck</span><span>✓</span></div>
+    <div class="dv-row"><span>Confirm benefits end date</span><span style="color:var(--rust);">Pending</span></div>
+    <div class="dv-row"><span>Schedule exit interview</span><span>✓</span></div>
+    <div class="dv-row"><span>Confirm knowledge transfer doc</span><span style="color:var(--rust);">Pending</span></div>
+  </div>
+</section>
+
+<section id="agencies" class="deep-section">
+  <div>
+    <h2>For agencies &amp; MSPs</h2>
+    <p>Managing offboarding for multiple client organizations means multiple checklists, multiple owners, and no room for mixing them up. Offlist keeps each client's departures and templates cleanly separate.</p>
+    <ul>
+      <li>Separate checklist templates per client organization</li>
+      <li>A clear audit trail you can hand back to the client if asked</li>
+      <li>One place for your team to work across every account</li>
+    </ul>
+    <a href="contact.html?plan=Business" class="btn btn-primary">Talk to us about multi-client setup</a>
+  </div>
+  <div class="deep-visual">
+    <div class="dv-label">CLIENT WORKSPACES</div>
+    <div class="dv-row"><span>Northlake Analytics</span><span>2 active</span></div>
+    <div class="dv-row"><span>Brightline Studio</span><span>1 active</span></div>
+    <div class="dv-row"><span>Harbor &amp; Co.</span><span>0 active</span></div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="cta-block">
+    <div>
+      <h2>Not sure which fits?</h2>
+      <p>Tell us how your team currently handles offboarding and we'll help you figure out the right setup.</p>
+    </div>
+    <a href="contact.html" class="btn btn-primary">Get in touch →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="f-brand-name">
+        <span class="brand-mark" style="width:26px;height:26px;border-radius:7px;"><img src="assets/logo.png" alt="" /></span>
+        Offlist
+      </div>
+      <p class="f-tagline">Nothing forgotten when someone leaves. A shared offboarding checklist for IT and HR.</p>
+    </div>
+    <div class="f-col">
+      <h4>Product</h4>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="app.html">Live demo</a>
+    </div>
+    <div class="f-col">
+      <h4>Solutions</h4>
+      <a href="solutions.html#it">IT Teams</a>
+      <a href="solutions.html#hr">HR &amp; People Ops</a>
+      <a href="solutions.html#agencies">Agencies &amp; MSPs</a>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="about.html#careers">Careers</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="f-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Conditions</a>
+      <a href="cookies.html">Cookie Policy</a>
+      <a href="acceptable-use.html">Acceptable Use</a>
+    </div>
+  </div>
+  <div style="max-width:1120px; margin:0 auto 26px;">
+    <div class="f-contact-name">GET IN TOUCH</div>
+    <a class="f-contact-email" href="mailto:victor@offlist.online">victor@offlist.online</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Offlist. All rights reserved.</span>
+    <span class="legal-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a></span>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>

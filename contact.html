@@ -4,55 +4,179 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Contact — Offlist</title>
+<meta name="description" content="Get in touch about Offlist — questions, demos, or getting your team set up." />
+<link rel="icon" href="assets/logo.png" />
 <link rel="stylesheet" href="styles.css" />
 <style>
   .wrap{max-width:640px; margin:0 auto; padding:56px 24px 64px;}
-  .wrap h1{font-size:28px; font-weight:800; margin:0 0 10px;}
-  .wrap p.lead{color:var(--muted); font-size:15px; max-width:52ch; margin:0 0 36px;}
-  .contact-info{display:flex; flex-direction:column; gap:16px; margin-bottom:40px;}
-  .contact-row{display:flex; align-items:center; gap:12px; font-size:14.5px;}
-  .contact-row .ico{width:34px; height:34px; border-radius:50%; background:var(--surface-dim); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:15px;}
+  .wrap h1{font-family:'Sora',sans-serif; font-size:28px; font-weight:800; margin:0 0 10px;}
+  .wrap p.lead{color:var(--muted); font-size:15px; max-width:52ch; margin:0 0 32px;}
+  .contact-row{display:flex; align-items:center; gap:12px; font-size:15px; margin-bottom:32px;}
+  .contact-row .ico{width:36px; height:36px; border-radius:50%; background:var(--surface-dim); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px;}
   .contact-row a{text-decoration:none; font-weight:700; color:var(--indigo);}
-  form.contact-form{display:flex; flex-direction:column; gap:14px; border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:24px;}
+  form.contact-form{display:flex; flex-direction:column; gap:14px; border:1px solid var(--border); background:var(--surface); border-radius:12px; padding:24px; box-shadow:var(--shadow);}
   .field{display:flex; flex-direction:column; gap:6px; font-size:13.5px;}
   .field-label{color:var(--muted); font-weight:600;}
-  .field input, .field textarea{font-family:'Work Sans',sans-serif; padding:10px 12px; border-radius:6px; border:1px solid var(--border); background:var(--bg); font-size:14.5px; color:var(--ink); resize:vertical;}
+  .field input, .field select, .field textarea{font-family:'Plus Jakarta Sans',sans-serif; padding:10px 12px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-size:14.5px; resize:vertical;}
   .form-note{font-size:12.5px; color:var(--muted); margin-top:4px;}
+  .form-success{display:none; background:#EEF3EC; border:1px solid #D3E3D0; color:#1F5C3A; border-radius:8px; padding:14px 16px; font-size:13.5px; margin-bottom:14px;}
+  .form-success.show{display:block;}
+  .form-error{display:none; background:#FBEDE7; border:1px solid #EFD3C4; color:#9A3E17; border-radius:8px; padding:14px 16px; font-size:13.5px; margin-bottom:14px;}
+  .form-error.show{display:block;}
 </style>
 </head>
 <body>
 
 <nav class="site-nav">
-  <div class="brand"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></div>
-  <div class="links">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><img src="assets/logo.png" alt="Offlist logo" /></span>
+    <span class="brand-text"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></span>
+  </a>
+  <div class="nav-links-desktop">
     <a href="index.html">Home</a>
-    <a href="app.html">Demo</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#how">How it works</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="pricing.html">Pricing</a>
     <a href="contact.html" class="active">Contact</a>
-    <a href="app.html" class="cta">Try it free</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <a href="app.html" class="nav-cta">Try it free</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">☰</button>
   </div>
 </nav>
 
+<div class="side-nav-overlay" id="sideNavOverlay"></div>
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-head"><span class="brand-name display">Menu</span><button class="side-nav-close" id="sideNavClose">✕</button></div>
+  <a href="index.html">Home</a>
+  <a href="index.html#features">Features</a>
+  <a href="index.html#how">How it works</a>
+  <a href="solutions.html">Solutions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="app.html">Live demo</a>
+  <a href="contact.html" class="active">Contact</a>
+  <a href="app.html" class="side-nav-cta">Try it free</a>
+</div>
+
 <div class="wrap">
-  <h1>Let's talk</h1>
-  <p class="lead">Testing the demo, thinking through how this would fit your IT/HR handoff, or just have a question — reach out directly, or send a message below.</p>
-  <div class="contact-info">
-    <!-- TODO: replace the placeholders below with real contact details -->
-    <div class="contact-row"><span class="ico">✉️</span><span>Email: <a href="mailto:victor@offlist.online">victor@offlist.online</a></span></div>
-    <!--<div class="contact-row"><span class="ico">📞</span><span>Phone: <a href="tel:+10000000000">Add phone number</a></span></div>
-    <div class="contact-row"><span class="ico">💼</span><span>LinkedIn / socials: <a href="#">Add link</a></span></div>-->
-  </div>
-  <form action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="99c9c504-7fea-48c2-91f2-dd695a3c500d">
+  <h1 id="contactHeading">Let's talk</h1>
+  <p class="lead" id="contactLead">Testing the demo, thinking through how this would fit your IT/HR handoff, or just have a question — reach out directly, or send a message below.</p>
+
+  <div class="contact-row"><span class="ico">✉️</span><span>Email us at <a href="mailto:victor@offlist.online">victor@offlist.online</a></span></div>
+
+  <div class="form-success" id="formSuccess">Thanks — your message is on its way. We'll get back to you shortly.</div>
+  <div class="form-error" id="formError">Something went wrong sending your message. Please try again, or email us directly at victor@offlist.online.</div>
+
+  <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="99c9c504-7fea-48c2-91f2-dd695a3c500d" />
+    <input type="hidden" name="subject" id="formSubject" value="New message from Offlist contact page" />
+    <input type="hidden" name="from_name" value="Offlist website" />
+
     <label class="field"><span class="field-label">Name</span><input type="text" name="name" required /></label>
     <label class="field"><span class="field-label">Work email</span><input type="email" name="email" required /></label>
-    <label class="field"><span class="field-label">Message</span><textarea name="message" rows="5" required></textarea></label>
-    <button type="submit" class="btn btn-primary">Send message</button>
-    <p class="form-note">This opens your email app to send the message — Offlist doesn't store anything you type here.</p>
+    <label class="field" id="planField" style="display:none;">
+      <span class="field-label">Interested plan</span>
+      <input type="text" name="plan" id="planInput" readonly />
+    </label>
+    <label class="field"><span class="field-label">Message</span><textarea name="message" id="messageInput" rows="5" required></textarea></label>
+    <button type="submit" class="btn btn-primary" id="submitBtn">Send message</button>
+    <p class="form-note">Sent securely — nothing you type here is stored by Offlist beyond delivering this message to us.</p>
   </form>
 </div>
 
 <footer class="site-footer">
-  <div class="inner"><span>© 2026 Offlist.</span><span><a href="index.html">Home</a></span></div>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand-name">
+        <span class="brand-mark" style="width:26px;height:26px;border-radius:7px;"><img src="assets/logo.png" alt="" /></span>
+        Offlist
+      </div>
+      <p class="f-tagline">Nothing forgotten when someone leaves. A shared offboarding checklist for IT and HR.</p>
+    </div>
+    <div class="f-col">
+      <h4>Product</h4>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="app.html">Live demo</a>
+    </div>
+    <div class="f-col">
+      <h4>Solutions</h4>
+      <a href="solutions.html#it">IT Teams</a>
+      <a href="solutions.html#hr">HR &amp; People Ops</a>
+      <a href="solutions.html#agencies">Agencies &amp; MSPs</a>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="about.html#careers">Careers</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="f-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Conditions</a>
+      <a href="cookies.html">Cookie Policy</a>
+      <a href="acceptable-use.html">Acceptable Use</a>
+    </div>
+  </div>
+  <div style="max-width:1120px; margin:0 auto 26px;">
+    <div class="f-contact-name">GET IN TOUCH</div>
+    <a class="f-contact-email" href="mailto:victor@offlist.online">victor@offlist.online</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Offlist. All rights reserved.</span>
+    <span class="legal-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a></span>
+  </div>
 </footer>
+
+<script src="site.js"></script>
+<script src="cookie-consent.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get('plan');
+  if (plan) {
+    document.getElementById('contactHeading').textContent = `Let's set up the ${plan} plan`;
+    document.getElementById('contactLead').textContent = `Tell us a bit about your team and we'll follow up to get your ${plan} workspace ready.`;
+    document.getElementById('planField').style.display = 'flex';
+    document.getElementById('planInput').value = plan;
+    document.getElementById('formSubject').value = `${plan} plan inquiry — Offlist`;
+    document.getElementById('messageInput').value = `Hi, I'm interested in the ${plan} plan for my team. Here's a bit about us: `;
+  }
+
+  const form = document.getElementById('contactForm');
+  const successBox = document.getElementById('formSuccess');
+  const errorBox = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    successBox.classList.remove('show');
+    errorBox.classList.remove('show');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+      });
+      const result = await res.json();
+      if (result.success) {
+        successBox.classList.add('show');
+        form.reset();
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      errorBox.classList.add('show');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+    }
+  });
+</script>
 </body>
 </html>

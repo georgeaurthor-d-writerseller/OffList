@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Live demo — Offlist</title>
+<link rel="icon" href="assets/logo.png" />
 <link rel="stylesheet" href="styles.css" />
 <style>
   .demo-banner{background:var(--surface-dim); border-bottom:1px solid var(--border); text-align:center; font-size:13px; color:var(--muted); padding:9px 16px;}
@@ -81,16 +82,38 @@
 <body>
 
 <nav class="site-nav">
-  <div class="brand"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></div>
-  <div class="links">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><img src="assets/logo.png" alt="Offlist logo" /></span>
+    <span class="brand-text"><span class="brand-name">Offlist</span><span class="brand-sub">Nothing forgotten when someone leaves</span></span>
+  </a>
+  <div class="nav-links-desktop">
     <a href="index.html">Home</a>
-    <a href="app.html" class="active">Demo</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#how">How it works</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="pricing.html">Pricing</a>
     <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">☰</button>
   </div>
 </nav>
 
+<div class="side-nav-overlay" id="sideNavOverlay"></div>
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-head"><span class="brand-name display">Menu</span><button class="side-nav-close" id="sideNavClose">✕</button></div>
+  <a href="index.html">Home</a>
+  <a href="index.html#features">Features</a>
+  <a href="index.html#how">How it works</a>
+  <a href="solutions.html">Solutions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="app.html" class="active">Live demo</a>
+  <a href="contact.html">Contact</a>
+</div>
+
 <div class="demo-banner">
-  <strong>You're using a live demo.</strong> Your changes are saved in this browser only — nothing is sent anywhere.
+  <strong>You're exploring Offlist in trial mode.</strong> Your changes are saved in this browser only — nothing is sent anywhere. <a href="pricing.html" style="color:var(--indigo); font-weight:600;">Ready for your team?</a>
   <button id="resetDemo">Reset demo data</button>
 </div>
 
@@ -104,8 +127,54 @@
 <main id="main"></main>
 
 <footer class="site-footer">
-  <div class="inner"><span>© 2026 Offlist.</span><span><a href="contact.html">Questions? Get in touch</a></span></div>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand-name">
+        <span class="brand-mark" style="width:26px;height:26px;border-radius:7px;"><img src="assets/logo.png" alt="" /></span>
+        Offlist
+      </div>
+      <p class="f-tagline">Nothing forgotten when someone leaves. A shared offboarding checklist for IT and HR.</p>
+    </div>
+    <div class="f-col">
+      <h4>Product</h4>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="app.html">Live demo</a>
+    </div>
+    <div class="f-col">
+      <h4>Solutions</h4>
+      <a href="solutions.html#it">IT Teams</a>
+      <a href="solutions.html#hr">HR &amp; People Ops</a>
+      <a href="solutions.html#agencies">Agencies &amp; MSPs</a>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="about.html#careers">Careers</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="f-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Conditions</a>
+      <a href="cookies.html">Cookie Policy</a>
+      <a href="acceptable-use.html">Acceptable Use</a>
+    </div>
+  </div>
+  <div style="max-width:1120px; margin:0 auto 26px;">
+    <div class="f-contact-name">GET IN TOUCH</div>
+    <a class="f-contact-email" href="mailto:victor@offlist.online">victor@offlist.online</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Offlist. All rights reserved.</span>
+    <span class="legal-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a></span>
+  </div>
 </footer>
+
+<script src="site.js"></script>
+
+<script src="cookie-consent.js"></script>
 
 <script>
 const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
