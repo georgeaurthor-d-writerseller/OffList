@@ -66,10 +66,19 @@
     .hero{grid-template-columns:1fr;}
     .hero h1{font-size:29px;}
     .contrast{grid-template-columns:1fr;}
-    .day-track{flex-wrap:wrap; gap:20px;}
-    .day-line{display:none;}
-    .day-node{width:auto;}
     .cta-block{flex-direction:column; align-items:flex-start;}
+  }
+
+  @media (max-width:700px){
+    .day-timeline{padding:10px 0;}
+    .day-line{display:none;}
+    .day-track{flex-direction:column; align-items:center; gap:0; position:relative;}
+    .day-track::before{content:""; position:absolute; top:6px; bottom:6px; left:50%; width:2px; background:var(--border); transform:translateX(-50%);}
+    .day-node{width:100%; max-width:340px; padding:18px 0;}
+    .day-node .d-text{font-size:13.5px;}
+    .quote-bubble{font-size:14px;}
+    .section-head h2{font-size:23px;}
+    .hero p.lead{font-size:15.5px;}
   }
 </style>
 </head>
@@ -267,7 +276,7 @@
         <span class="brand-mark" style="width:26px;height:26px;border-radius:7px;"><img src="assets/logo.png" alt="" /></span>
         Offlist
       </div>
-      <p class="f-tagline">Nothing forgotten when someone leaves. A shared offboarding checklist for IT and HR.</p>
+      <p class="f-tagline">Nothing forgotten when someone leaves — a shared offboarding checklist for IT and HR.</p>
     </div>
     <div class="f-col">
       <h4>Product</h4>
